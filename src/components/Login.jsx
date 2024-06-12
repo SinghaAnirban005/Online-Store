@@ -30,7 +30,7 @@ function Login() {
 
       if(userData) {
           dispatch(login(userData))
-          console.log("Account successfully created...");
+          console.log("Login Succesfull...");
           navigate("/")
         }
 

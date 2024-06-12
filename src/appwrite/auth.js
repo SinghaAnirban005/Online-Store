@@ -46,12 +46,12 @@ export class auth {
     
     try {
 
-      const sessions = await this.account.listSessions()
-      if(sessions) {
+      // const sessions = await this.account.listSessions()
+      // if(sessions) {
         
-            await this.account.deleteSessions()
+      //     await this.account.deleteSessions()
         
-      }
+      // }
 
       console.log(`Logging in with values ${email} and ${password}`);
       return await this.account.createEmailPasswordSession(email, password)
@@ -71,23 +71,6 @@ export class auth {
    }
   }
 
-  // handleActiveSessions = async () => {
-  //   try {
-  //     // Fetch all active sessions
-  //     const sessions = await this.account.listSessions();
-
-  //     // Loop through the sessions and delete them
-  //     if(sessions) {
-  //       for (const session of sessions.sessions) {
-  //         await account.deleteSession(session.$id);
-  //       }
-  //     }
-
-  //   } catch (error) {
-  //     console.log('Error while handling active sessions: ', error);
-  //     throw error;
-  //   }
-  // }
 
 
   getCurrentUser = async() => {

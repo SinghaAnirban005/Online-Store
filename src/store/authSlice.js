@@ -5,7 +5,9 @@ const initialState = {
   userData: null,
   cart: [{
     id: 0,
-    title: ""
+    title: "",
+    price: "",
+    image: null
   }]
 }
 
@@ -26,9 +28,12 @@ const authSlice = createSlice(
     },
 
       addToCart: (state, action) => {
+        
         const data = {
           id: action.payload.id,
-          title: action.payload.title
+          title: action.payload.title,
+          price: action.payload.price,
+          image: action.payload.image
         }
 
 

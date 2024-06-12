@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart } from "../store/authSlice.js"
+// import { addToCart } from "../store/authSlice.js"
+import service from '../appwrite/config.js'
 
 function Home() {
 
@@ -9,20 +10,37 @@ function Home() {
   const active = useSelector((state) => state.userStatus)
 
 
-  useEffect(() => {
+  useEffect( () => {
    const response = fetch('https://fakestoreapi.com/products?limit=20')       
    
-        response.then(res => res.json())
+        response
+        .then(res => res.json())
         .then((item) => setProducts(item))
            
   }, [])
 
   const dispatch = useDispatch()
 
+  const handleCart = async() => {
+    
+    try {
 
-  // const handleClick = () => {
-  //   console.log();
-  // }
+      const data = {
+        userId: user.$id,
+        product_Id: products.id,
+        quantity
+      }
+      console.log(data);
+      const response = await service.addProductToCart(data)
+
+      return response
+
+    } catch (error) {
+      throw error
+    }
+
+  }
+
 
   return active ? (
     <div className='flex flex-col mt-16'>
@@ -53,7 +71,7 @@ function Home() {
               BUY
             </button>
 
-            <button className='text-white border-2 border-orange-600 hover:bg-slate-600 ml-2 p-2 rounded-lg' onClick={() => dispatch(addToCart({id: product.id, title: product.title}))}>
+            <button  type='submit' className='text-white border-2 border-orange-600 hover:bg-slate-600 ml-2 p-2 rounded-lg' onClick={handleCart}>
               ADD TO CART
             </button>
             </div>

@@ -7,8 +7,9 @@ export class config {
 
   constructor() {
     this.client
-    .this.setEndpoint(conf.appwriteUrl)
-    .this.setProjectId(conf.appwriteProjectId)
+
+    .setEndpoint(conf.appwriteUrl)
+    .setProject(conf.appwriteProjectId)
 
     this.databases = new Databases(this.client)
   }
@@ -16,7 +17,13 @@ export class config {
 
   addProductToCart = async ({userId, product_Id, quantity=1}) => {
     try {
-      const response = await this.databases.createDocument(
+
+    console.log('userId:', userId);
+    console.log('product_Id:', product_Id);
+    console.log('quantity:', quantity);
+
+      const response = await this.databases.createDocument (
+
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         ID.unique(),
