@@ -15,28 +15,46 @@ function App() {
   const dispatch = useDispatch()
 
   // const [count, setCount] = useState(0)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
-  const active = useSelector((state) => state.userStatus)
+  // const active = useSelector((state) => state.userStatus)
 
-  useEffect(  () => {
-    const user =  authService.getCurrentUser()
-
-    if (user) {
-      dispatch(login({
-        email: user.email, 
-        username: user.name
-      }));
-
-      setLoading(false)
-     
+  useEffect(() => {
+    
+   authService.getCurrentUser()
+   .then((userData) => {
+    if(userData) {
+    
+      dispatch(login({userData}))
       navigate("/")
     }
 
     else {
-
-      dispatch(logout())      
+      dispatch(logout())
+      navigate("/")
     }
+    
+   })
+   .finally(() => setLoading(false))
+
+    // if (user) {
+    //   dispatch(login({
+    //     email: user.email, 
+    //     username: user.name
+    //   }));
+
+    //   setLoading(false)
+     
+    //   navigate("/")
+
+    // }
+
+    // else {
+
+    //   dispatch(logout())  
+    //   setLoading(false) 
+    //   navigate("/")
+    // }
 
   }, [])
 
