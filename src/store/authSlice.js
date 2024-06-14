@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { useDispatch} from "react-redux";
 
 const initialState = {
   userStatus : false,
@@ -47,5 +48,6 @@ const authSlice = createSlice(
 
 
 export const {login, logout, addToCart} = authSlice.actions
+
 
 export default authSlice.reducer

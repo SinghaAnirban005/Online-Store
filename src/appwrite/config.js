@@ -1,5 +1,7 @@
-import { Client, Databases, ID } from 'appwrite';
+import { Client, Databases, ID, Query } from 'appwrite';
 import conf from '../conf/conf';
+import { addToCart } from '../store/authSlice.js';
+
 
 export class config {
 
@@ -13,40 +15,55 @@ export class config {
 
     this.databases = new Databases(this.client)
   }
+
+  addToCartAsync = (item) => async (dispatch) => {
+
+    // const dispatch = useDispatch()
   
-
-  addProductToCart = async ({userId, product_Id, quantity=1}) => {
     try {
-
-    console.log('userId:', userId);
-    console.log('product_Id:', product_Id);
-    console.log('quantity:', quantity);
-
-      const response = await this.databases.createDocument (
-
+      await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         ID.unique(),
-
+  
         {
-          userId,
-          product_Id,
-          quantity
+          userId: item.id, 
+          title: item.title,
+          price: item.price,
+          image: item.image,
         }
-
-      )
-
-      console.log("Product Added to Cart ", response);
-      return response
+  
+      );
+  
+      dispatch(addToCart(item));
 
     } catch (error) {
+      console.log(typeof item.price);
       console.error('Error adding product to cart:', error);
-      throw error;
     }
-  }
   
+  };
 
 
+  getDocuments = async () => {
+   try {
+    const response = await this.databases.listDocuments(
+      conf.appwriteDatabaseId,
+      conf.appwriteCollectionId,
+
+      [
+          Query.greaterThan("userId", 0)
+      ]
+
+    )
+
+    return response
+
+   } catch (error) {
+      console.log("Error fetching Products: ", error);
+      throw error
+   }
+  }
 
 }
 
