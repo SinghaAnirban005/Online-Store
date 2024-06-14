@@ -1,6 +1,7 @@
 import { Client, Databases, ID, Query } from 'appwrite';
 import conf from '../conf/conf';
 import { addToCart } from '../store/authSlice.js';
+import authService from './auth.js';
 
 
 export class config {
@@ -17,8 +18,6 @@ export class config {
   }
 
   addToCartAsync = (item) => async (dispatch) => {
-
-    // const dispatch = useDispatch()
   
     try {
       await this.databases.createDocument(
@@ -46,13 +45,17 @@ export class config {
 
 
   getDocuments = async () => {
+    
+
    try {
+    const user = await authService.getCurrentUser()
+
     const response = await this.databases.listDocuments(
       conf.appwriteDatabaseId,
       conf.appwriteCollectionId,
 
       [
-          Query.greaterThan("userId", 0)
+          Query.equal("userId", user.$id)
       ]
 
     )

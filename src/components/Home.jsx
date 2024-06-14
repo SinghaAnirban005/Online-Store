@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import { addToCart } from "../store/authSlice.js"
 // import service from '../appwrite/config.js'
-import { addToCart } from '../store/authSlice.js'
-import { addToCartAsync } from '../store/authSlice.js'
+
 import AddToCartBtn from './AddToCartBtn.jsx'
 
 function Home() {

@@ -37,7 +37,7 @@ function Header() {
 
   const navigate = useNavigate()
 
-
+ 
 return (
     <div className='flex justify-between'>
       <div>

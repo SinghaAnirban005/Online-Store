@@ -1,16 +1,22 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import service from '../appwrite/config.js';
+import authService, { auth } from '../appwrite/auth.js';
 
 function AddToCartBtn({product}) {
 
   const dispatch = useDispatch()
   
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+
+    const user = await authService.getCurrentUser()
+    // if (user) {
+
+    // }
 
     const cartItem = {
   
-      id: product.id,
+      id: user.$id,
       title: product.title,
       price: parseInt(product.price),
       image: product.image,
