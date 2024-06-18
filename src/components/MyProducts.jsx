@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux'
 import service from '../appwrite/config.js'
 // import del from "../components/delete.jpg"
 import DeleteBtn from './DeleteBtn.jsx'
+import Slider from './Slider.jsx'
 
 function MyProducts() {
 
   // const product = useSelector((state) => state.cart)
   const [products, setProducts] = useState([])
-
 
   const [items, setItems] = useState(1)
 
@@ -18,9 +18,9 @@ function MyProducts() {
     try {
      const posts = await service.getDocuments()
       
-    // console.log(posts);
     if(posts) {
       setProducts(posts.documents)
+
     }
      
     } catch (error) {
@@ -30,10 +30,9 @@ function MyProducts() {
 
    }
 
-
    getCart()
    
-}, [products, setProducts])
+}, [products])
 
   return (
     <div>
@@ -58,16 +57,15 @@ function MyProducts() {
                 <p className='mt-10 text-lg font-medium'>₹ {item.price}</p>
               </div>
 
-              <div className='flex flex-col justify-between border-none'>
+              <div className='flex flex-col justify-between'>
 
                <div>
                 <DeleteBtn product={item} />
                </div>
 
-                <div className='flex flex-col'>
-                <label className='text-white'>Quantity ( {items} )</label>
-                <input id={item.$id} type="range" min={1} max={10} value={items} onChange={(e) => setItems(e.target.value)} />
-                </div>
+              <div className='flex'>
+                <Slider />
+              </div>
 
               </div>
               
