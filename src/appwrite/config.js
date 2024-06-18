@@ -20,6 +20,9 @@ export class config {
   addToCartAsync = (item) => async (dispatch) => {
   
     try {
+
+      
+
       await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
@@ -66,6 +69,19 @@ export class config {
       console.log("Error fetching Products: ", error);
       throw error
    }
+  };
+
+  deleteDocument = (item) => async() => {
+    try {
+      const response = await this.databases.deleteDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+
+        item.$id // document id
+      )
+    } catch (error) {
+      console.log("Error while deleting the document ", error);
+    }
   }
 
 }
