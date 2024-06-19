@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import service from '../appwrite/config.js';
 import authService, { auth } from '../appwrite/auth.js';
+import { useSelector } from 'react-redux';
 
 function AddToCartBtn({product}) {
 
@@ -13,7 +14,6 @@ function AddToCartBtn({product}) {
     // if (user) {
 
     // }
-
     const cartItem = {
   
       id: user.$id,
@@ -21,9 +21,9 @@ function AddToCartBtn({product}) {
       price: parseInt(product.price),
       image: product.image,
       userId: product.$id, // Replace with actual user ID
-
+      Quantity: 1
+      
     };
-
     
     const ser = service.addToCartAsync(cartItem)
     dispatch(ser)

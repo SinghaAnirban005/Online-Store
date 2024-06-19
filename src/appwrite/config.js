@@ -21,8 +21,6 @@ export class config {
   
     try {
 
-      
-
       await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
@@ -33,6 +31,7 @@ export class config {
           title: item.title,
           price: item.price,
           image: item.image,
+          Quantity: 1
         }
   
       );
@@ -81,6 +80,25 @@ export class config {
       )
     } catch (error) {
       console.log("Error while deleting the document ", error);
+    }
+  }
+
+  // Creating a method to update the documnet created ...
+  updateDocumentAttribute = async(item, updatedAttributes) => {
+    try {
+      console.log(item);
+      console.log(updatedAttributes);
+      const response = await this.databases.updateDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId, 
+        item.$id,   // The ID of the document you want to update
+        updatedAttributes  // Object containing the attributes to update
+      );
+  
+      console.log('Document updated successfully:', response);
+      return response;
+    } catch (error) {
+      console.error('Error updating document:', error);
     }
   }
 

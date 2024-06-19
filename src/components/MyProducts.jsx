@@ -10,7 +10,7 @@ function MyProducts() {
   // const product = useSelector((state) => state.cart)
   const [products, setProducts] = useState([])
 
-  const [items, setItems] = useState(1)
+  // const [items, setItems] = useState(1)
 
   useEffect(() => {
 
@@ -64,7 +64,7 @@ function MyProducts() {
                </div>
 
               <div className='flex'>
-                <Slider />
+                <Slider product={item} />
               </div>
 
               </div>

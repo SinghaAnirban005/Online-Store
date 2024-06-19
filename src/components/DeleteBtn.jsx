@@ -11,7 +11,7 @@ function DeleteBtn({product}) {
     try {
       console.log(product);
   
-      const item = await service.deleteDocument(product)
+      const item = service.deleteDocument(product)
       dispatch(item)
       
 

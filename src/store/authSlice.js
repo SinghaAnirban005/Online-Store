@@ -8,7 +8,7 @@ const initialState = {
     id: 0,
     title: "",
     price: "",
-    image: null
+    image: null,
   }]
 }
 
