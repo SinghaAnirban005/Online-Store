@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import service from '../appwrite/config.js'
-// import del from "../components/delete.jpg"
 import DeleteBtn from './DeleteBtn.jsx'
 import Slider from './Slider.jsx'
 
@@ -15,18 +14,22 @@ function MyProducts() {
   useEffect(() => {
 
    const getCart = async () => {
-    try {
-     const posts = await service.getDocuments()
+
+  try {
+    const posts = await service.getDocuments()
       
     if(posts) {
+      
       setProducts(posts.documents)
 
-    }
+      }
      
-    } catch (error) {
-      console.log("Error fetching documents ", error);
-      throw error 
-    }
+    } 
+    
+  catch (error) {
+    console.log("Error fetching documents ", error);
+    throw error 
+  }
 
    }
 
@@ -63,7 +66,8 @@ function MyProducts() {
                 <DeleteBtn product={item} />
                </div>
 
-              <div className='flex'>
+              <div className='flex flex-col'>
+              <label className='text-white'>Quantity ({item.Quantity}) </label>
                 <Slider product={item} />
               </div>
 
@@ -73,6 +77,7 @@ function MyProducts() {
 
             </li>
           ))}
+
         </div>
       </ul>
     </div>

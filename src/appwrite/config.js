@@ -48,7 +48,6 @@ export class config {
 
   getDocuments = async () => {
     
-
    try {
     const user = await authService.getCurrentUser()
 
@@ -61,7 +60,7 @@ export class config {
       ]
 
     )
-
+    // console.log(response);
     return response
 
    } catch (error) {
@@ -85,6 +84,7 @@ export class config {
 
   // Creating a method to update the documnet created ...
   updateDocumentAttribute = async(item, updatedAttributes) => {
+
     try {
       console.log(item);
       console.log(updatedAttributes);
@@ -97,8 +97,29 @@ export class config {
   
       console.log('Document updated successfully:', response);
       return response;
+    } 
+    
+    catch (error) {
+      console.error('Error updating document: ', error);
+    }
+
+  }
+
+  getDocument = async(item) => {
+    try {
+
+      const response = await databases.getDocument(
+        conf.appwriteDatabaseId,   
+        conf.appwriteCollectionId,  
+        item.$id     // The ID of the document you want to retrieve
+      );
+      console.log(response);
+  
+      console.log('Document retrieved successfully:', response);
+      return response;
+
     } catch (error) {
-      console.error('Error updating document:', error);
+      console.error('Error retrieving document:', error);
     }
   }
 
