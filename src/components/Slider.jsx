@@ -8,56 +8,38 @@ function Slider({product}) {
   const [length, setLength] = useState(1)
   const dispatch = useDispatch()
 
-  const handleChange = useCallback((e) => {
+  // useEffect(() => {
     
-     try {
-      // Problem here is that length change takes delay ... Need to resolve
-      setLength(e.target.value)
+  //   setLength(length)
 
-      const res = async() => {
-      
-      const response = await service.updateDocumentAttribute(product, 
+  // }, [length, setLength])
+
+  const handleChange = async (e) => {
+   
+    
+  try {
+     // This helps to prevent the delay in slider 
+    const newLength = e.target.value 
+    setLength(newLength)
+
+    // Problem here is that length change takes delay ... Need to resolve -- > Resolved
+    
+    const response = await service.updateDocumentAttribute(product, 
         {
-          Quantity: parseInt(length)
+          Quantity: parseInt(newLength)
         })
          
-      if(response) {
-          console.log("Updated attributes :: ");
-      }
-      
+    if(response) {
+      console.log(":: Updated quantity attribute ::");
       dispatch(response)
-
-    } 
-
-      res()
+    }
 
      } catch (error) {
         console.log("Failed to update attribute :", error);
      }  
 
      
-    }, [length])
-
-    // useEffect(() => {
-    //   try {
-    //     const func = async() => {
-    //       const originalLength = await service.getDocument(product)
-          
-    //       if(!originalLength) {
-    //         console.log("Not able to retrieve details");
-    //       }
-  
-    //       console.log(originalLength);
-    //     }
-
-    //     func()
-
-    //   } catch (error) {
-    //     console.log("ERROR WHILE GETTING DOCUMENT:: ", error);
-    //     throw error
-    //   }
-
-    // }, [length])
+    }
 
 
   return (

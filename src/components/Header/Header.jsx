@@ -66,6 +66,10 @@ return (
               </li>
             )}
         </ul>
+
+        <div className='flex items-center justify-center'>
+          <h1 className='text-white'>SINGHA'S 99 CLUB</h1>
+        </div>
       </div>
     </div>
 
